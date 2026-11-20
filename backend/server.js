@@ -5,7 +5,7 @@ const db = require('./database');
 const bcrypt = require('bcryptjs');
 
 const app = express();
-app.use(jwt({ secret: process.env.JWT_SECRET }));
+
 
 app.use(cors());
 app.use(express.json());
