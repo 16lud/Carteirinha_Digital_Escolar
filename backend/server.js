@@ -16,6 +16,113 @@ app.get('/', (req, res) => {
 });
 
 // ---------------------------------------------------------
+// UC-002: AUTENTICAÇÃO DE USUÁRIO
+// ---------------------------------------------------------
+
+app.post('/auth/login', (req, res) => {
+  const { email, senha } = req.body;
+
+  // Verificar campos obrigatórios
+  if (!email || !senha) {
+    return res.status(400).json({
+      erro: 'Informe o e-mail e a senha.'
+    });
+  }
+
+  const emailFormatado = email.trim().toLowerCase();
+
+  // Buscar usuário pelo e-mail
+  const sql = `
+    SELECT
+      id,
+      nome,
+      email,
+      senha_hash,
+      tipo_perfil,
+      status
+    FROM usuario
+    WHERE email = ?
+  `;
+
+  db.query(sql, [emailFormatado], async (err, resultados) => {
+    if (err) {
+      console.error('Erro no login:', err);
+
+      return res.status(500).json({
+        erro: 'Erro ao realizar autenticação.'
+      });
+    }
+
+    // Verificar se o usuário existe
+    if (resultados.length === 0) {
+      return res.status(401).json({
+        erro: 'E-mail ou senha incorretos.'
+      });
+    }
+
+    const usuario = resultados[0];
+
+    // Verificar se a conta está ativa
+    if (usuario.status !== 'ativo') {
+      return res.status(403).json({
+        erro: 'Esta conta está inativa.'
+      });
+    }
+
+    // Verificar se possui perfil válido
+    if (!['estudante', 'motorista'].includes(usuario.tipo_perfil)) {
+      return res.status(403).json({
+        erro: 'Perfil de usuário inválido.'
+      });
+    }
+
+    try {
+      // Comparar senha informada com o hash armazenado
+      const senhaCorreta = await bcrypt.compare(
+        senha,
+        usuario.senha_hash
+      );
+
+      if (!senhaCorreta) {
+        return res.status(401).json({
+          erro: 'E-mail ou senha incorretos.'
+        });
+      }
+
+      // Gerar token JWT
+      const token = jwt.sign(
+        {
+          id: usuario.id,
+          perfil: usuario.tipo_perfil
+        },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: '4h'
+        }
+      );
+
+      // Responder com os dados do usuário
+      return res.json({
+        mensagem: 'Login realizado com sucesso!',
+        token,
+        usuario: {
+          id: usuario.id,
+          nome: usuario.nome,
+          email: usuario.email,
+          perfil: usuario.tipo_perfil
+        }
+      });
+
+    } catch (erro) {
+      console.error('Erro na autenticação:', erro);
+
+      return res.status(500).json({
+        erro: 'Erro interno ao realizar login.'
+      });
+    }
+  });
+});
+// ---------------------------------------------------------
 // ROTAS DA API PARA O CRUD DE ESTUDANTE
 // ---------------------------------------------------------
 
