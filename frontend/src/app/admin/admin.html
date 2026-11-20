@@ -1,0 +1,148 @@
+
+<div class="page-admin">
+
+  <!-- Cabeçalho -->
+  <header class="top-header">
+    <div class="logo">
+      <span class="icone-onibus">🚌</span>
+      <span>Transporte Digital</span>
+    </div>
+
+    <a routerLink="/cadastro" class="link-ajuda">
+      Ajuda?
+    </a>
+  </header>
+
+  <!-- Painel administrativo -->
+  <main class="admin-card">
+
+    <h2>Painel Administrativo</h2>
+
+    <p class="subtitulo">
+      Gerencie os estudantes cadastrados no sistema.
+    </p>
+
+    <!-- Adicionar estudante -->
+    <div class="actions-top">
+      <a routerLink="/cadastro" class="btn-primary">
+        + Adicionar estudante
+      </a>
+    </div>
+
+    <!-- Formulário de edição -->
+    <div *ngIf="estudanteEmEdicao" class="edicao-card">
+
+      <h3>Editar estudante</h3>
+
+      <p class="subtitulo">
+        Atualize as informações de {{ estudanteEmEdicao.nome }}.
+      </p>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label>Turma</label>
+
+          <input
+            type="text"
+            [(ngModel)]="estudanteEmEdicao.turma"
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Turno</label>
+
+          <select [(ngModel)]="estudanteEmEdicao.turno">
+            <option value="Matutino">Matutino</option>
+            <option value="Vespertino">Vespertino</option>
+            <option value="Noturno">Noturno</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="acoes-edicao">
+        <button
+          (click)="salvarEdicao()"
+          class="btn-primary">
+          Salvar alterações
+        </button>
+
+        <button
+          (click)="estudanteEmEdicao = null"
+          class="btn-cancelar">
+          Cancelar
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Quantidade de estudantes -->
+    <p class="subtitulo">
+      {{ estudantes.length }} estudantes cadastrados
+    </p>
+
+    <!-- Tabela -->
+    <div class="tabela-container">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Matrícula</th>
+            <th>Turma / Turno</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr *ngFor="let e of estudantes">
+
+            <td>
+              <strong>{{ e.nome || 'Nome não informado' }}</strong>
+            </td>
+
+            <td>
+              {{ e.matricula || 'Não informada' }}
+            </td>
+
+            <td>
+              {{ e.turma || 'Não informada' }}
+              ({{ e.turno }})
+            </td>
+
+            <td>
+              <div class="acoes">
+
+                <button
+                  class="btn-editar"
+                  (click)="prepararEdicao(e)">
+                  Editar
+                </button>
+
+                <button
+                  class="btn-excluir"
+                  (click)="excluirEstudante(e.id)">
+                  Excluir
+                </button>
+
+              </div>
+            </td>
+
+          </tr>
+
+          <tr *ngIf="estudantes.length === 0">
+            <td colspan="4" class="vazio">
+              Nenhum estudante encontrado.
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+    </div>
+
+  </main>
+
+</div>

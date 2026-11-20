@@ -1,0 +1,123 @@
+
+<div class="page-cadastro">
+
+  <!-- Cabeçalho -->
+  <header class="top-header">
+    <div class="logo">
+      <span class="icone-onibus">🚌</span>
+      <span>Transporte Digital</span>
+    </div>
+
+    <a class="link-ajuda">Ajuda?</a>
+  </header>
+
+  <!-- Cartão de cadastro -->
+  <main class="cadastro-card">
+
+    <div class="icone-estudante">🎓</div>
+
+    <h2>Cadastro do Aluno</h2>
+    <p class="subtitulo">
+      Preencha seus dados para criar sua conta.
+    </p>
+
+    <!-- Mensagens -->
+    <div *ngIf="mensagemSucesso" class="alert success">
+      {{ mensagemSucesso }}
+    </div>
+
+    <div *ngIf="mensagemErro" class="alert error">
+      {{ mensagemErro }}
+    </div>
+
+    <form (ngSubmit)="cadastrar()">
+
+      <div class="form-group">
+        <label>Nome completo</label>
+        <input
+          type="text"
+          [(ngModel)]="formEstudante.nome"
+          name="nome"
+          placeholder="Digite seu nome completo"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Matrícula</label>
+        <input
+          type="text"
+          [(ngModel)]="formEstudante.matricula"
+          name="matricula"
+          placeholder="Digite sua matrícula"
+          required
+        />
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label>Turma</label>
+          <input
+            type="text"
+            [(ngModel)]="formEstudante.turma"
+            name="turma"
+            placeholder="Ex.: 4º INFO"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Turno</label>
+          <select
+            [(ngModel)]="formEstudante.turno"
+            name="turno"
+            required
+          >
+            <option value="Matutino">Matutino</option>
+            <option value="Vespertino">Vespertino</option>
+            <option value="Noturno">Noturno</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label>E-mail</label>
+        <input
+          type="email"
+          [(ngModel)]="formEstudante.email"
+          name="email"
+          placeholder="Digite seu e-mail"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Criar senha</label>
+        <input
+          type="password"
+          [(ngModel)]="formEstudante.senha"
+          name="senha"
+          placeholder="Mínimo de 8 caracteres"
+          minlength="8"
+          required
+        />
+      </div>
+
+      <button
+        type="submit"
+        class="btn-primary"
+        [disabled]="enviando"
+      >
+        {{ enviando ? 'Criando conta...' : 'Criar conta' }}
+      </button>
+
+    </form>
+
+    <div class="voltar">
+      <a routerLink="/">← Voltar para escolha de perfil</a>
+    </div>
+
+  </main>
+</div>

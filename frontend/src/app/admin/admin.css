@@ -1,0 +1,253 @@
+
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.page-admin {
+  min-height: 100vh;
+  background: #edf4fa;
+  padding: 30px 20px 50px;
+  box-sizing: border-box;
+}
+
+/* Cabeçalho */
+.top-header {
+  max-width: 1100px;
+  margin: 0 auto 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #174c78;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.icone-onibus {
+  font-size: 29px;
+}
+
+.link-ajuda {
+  color: #245b86;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Cartão principal */
+.admin-card {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 35px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(35, 75, 110, .10);
+  box-sizing: border-box;
+}
+
+.admin-card h2 {
+  margin: 0 0 10px;
+  color: #193d5c;
+  font-family: Georgia, serif;
+  font-size: 27px;
+}
+
+.subtitulo {
+  margin: 10px 0 25px;
+  color: #75889a;
+  font-size: 14px;
+}
+
+/* Área de adicionar */
+.actions-top {
+  margin: 20px 0;
+}
+
+/* Botões */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 45px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 8px;
+  background: #2476c5;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  background: #185fa5;
+}
+
+.btn-editar,
+.btn-excluir {
+  padding: 9px 13px;
+  border: none;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-editar {
+  background: #e8f2fc;
+  color: #2476c5;
+}
+
+.btn-excluir {
+  background: #fdecec;
+  color: #b52b2b;
+}
+
+.acoes {
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+/* Tabela */
+.tabela-container {
+  width: 100%;
+  margin-top: 20px;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+thead {
+  background: #edf4fa;
+}
+
+th {
+  padding: 16px 12px;
+  color: #294963;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+td {
+  padding: 15px 12px;
+  border-bottom: 1px solid #e7edf2;
+  color: #52697d;
+  font-size: 13px;
+}
+
+tbody tr:hover {
+  background: #f8fbfe;
+}
+
+.vazio {
+  padding: 30px;
+  color: #8798a8;
+  text-align: center;
+}
+
+/* Edição */
+.edicao-card {
+  margin: 25px 0;
+  padding: 25px;
+  border: 1px solid #dce8f2;
+  border-radius: 12px;
+  background: #f8fbfe;
+}
+
+.edicao-card h3 {
+  margin: 0;
+  color: #193d5c;
+  font-family: Georgia, serif;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  margin: 18px 0;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+  color: #294963;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  height: 46px;
+  padding: 0 13px;
+  border: 1px solid #d5e0e9;
+  border-radius: 8px;
+  background: white;
+  color: #294963;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #2878c7;
+  box-shadow: 0 0 0 3px rgba(40, 120, 199, .10);
+}
+
+.acoes-edicao {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-cancelar {
+  min-height: 45px;
+  padding: 0 18px;
+  border: 1px solid #d5e0e9;
+  border-radius: 8px;
+  background: white;
+  color: #52697d;
+  cursor: pointer;
+}
+
+/* Responsividade */
+@media (max-width: 650px) {
+  .page-admin {
+    padding: 20px 12px 35px;
+  }
+
+  .admin-card {
+    padding: 22px 16px;
+  }
+
+  .admin-card h2 {
+    font-size: 23px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .top-header {
+    margin-bottom: 25px;
+  }
+}
